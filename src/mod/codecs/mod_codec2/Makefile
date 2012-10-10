@@ -5,7 +5,9 @@ CODEC2_BUILDDIR=$(switch_builddir)/libs/libcodec2
 CODEC2LA=$(CODEC2_BUILDDIR)/src/libcodec2.la
 
 LOCAL_CFLAGS=-I$(CODEC2_DIR)/include -I$(CODEC2_BUILDDIR)/src
-LOCAL_LIBADD=$(CODEC2LA)
+LOCAL_LIBADD=$(CODEC2LA) -lm
+LOCAL_LDFLAGS=-lm
+
 include $(BASE)/build/modmake.rules
 
 $(CODEC2LA): $(CODEC2_DIR) $(CODEC2_DIR)/.update
