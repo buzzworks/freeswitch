@@ -32,10 +32,10 @@
  * example filename: shout://user:pass@host.com/mount.mp3
  *
  */
-#include "libmpg123/mpg123.h"
+#include <mpg123.h>
 #include <switch.h>
 #include <shout/shout.h>
-#include <lame.h>
+#include <lame/lame.h>
 #include <switch_curl.h>
 
 #define OUTSCALE 8192 * 2
