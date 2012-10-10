@@ -3,7 +3,8 @@ ILBC_DIR=$(switch_srcdir)/libs/ilbc
 ILBC_BUILDDIR=$(switch_builddir)/libs/ilbc
 ILBCLA=$(ILBC_BUILDDIR)/src/libilbc.la
 LOCAL_CFLAGS=-I$(ILBC_DIR)/src -I$(ILBC_BUILDDIR)/src
-LOCAL_LIBADD=$(ILBCLA)
+LOCAL_LIBADD=$(ILBCLA) -lm
+LOCAL_LDFLAGS=$(ILBCLA)
 
 include $(BASE)/build/modmake.rules
 
