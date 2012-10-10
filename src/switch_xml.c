@@ -1624,7 +1624,7 @@ SWITCH_DECLARE(switch_xml_t) switch_xml_parse_file(const char *file)
 
 	switch_mutex_lock(FILE_LOCK);
 
-	if (!(new_file = switch_mprintf("%s%s%s.fsxml", SWITCH_GLOBAL_dirs.log_dir, SWITCH_PATH_SEPARATOR, abs))) {
+	if (!(new_file = switch_mprintf("%s%s%s.fsxml", SWITCH_GLOBAL_dirs.run_dir, SWITCH_PATH_SEPARATOR, abs))) {
 		goto done;
 	}
 
