@@ -109,7 +109,7 @@ static switch_status_t en_say_general_count(switch_say_file_handle_t *sh, char *
 {
 	int in;
 	int x = 0;
-	int places[9] = { 0 };
+	int places[10] = { 0 };
 	char sbuf[128] = "";
 	switch_status_t status;
 
@@ -126,7 +126,7 @@ static switch_status_t en_say_general_count(switch_say_file_handle_t *sh, char *
 		return SWITCH_STATUS_SUCCESS;
 	}
 
-	if (!(tosay = switch_strip_commas(tosay, sbuf, sizeof(sbuf)-1)) || strlen(tosay) > 9) {
+	if (!(tosay = switch_strip_commas(tosay, sbuf, sizeof(sbuf)-1)) || strlen(tosay) > 10) {
 		switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_ERROR, "Parse Error!\n");
 		return SWITCH_STATUS_GENERR;
 	}
@@ -134,7 +134,7 @@ static switch_status_t en_say_general_count(switch_say_file_handle_t *sh, char *
 	in = atoi(tosay);
 
 	if (in != 0) {
-		for (x = 8; x >= 0; x--) {
+		for (x = 9; x >= 0; x--) {
 			int num = (int) pow(10, x);
 			if ((places[(uint32_t) x] = in / num)) {
 				in -= places[(uint32_t) x] * num;
@@ -162,10 +162,13 @@ static switch_status_t en_say_general_count(switch_say_file_handle_t *sh, char *
 			break;
 		case SSM_COUNTED:
 		case SSM_PRONOUNCED:
-			if ((status = play_group(SSM_PRONOUNCED, places[8], places[7], places[6], "digits/million", sh)) != SWITCH_STATUS_SUCCESS) {
+			if ((status = play_group(SSM_PRONOUNCED, places[9], places[8], places[7], "digits/crore", sh)) != SWITCH_STATUS_SUCCESS) {
 				return status;
 			}
-			if ((status = play_group(SSM_PRONOUNCED, places[5], places[4], places[3], "digits/thousand", sh)) != SWITCH_STATUS_SUCCESS) {
+			if ((status = play_group(SSM_PRONOUNCED, 0, places[6], places[5], "digits/lakh", sh)) != SWITCH_STATUS_SUCCESS) {
+				return status;
+			}
+			if ((status = play_group(SSM_PRONOUNCED, 0, places[4], places[3], "digits/thousand", sh)) != SWITCH_STATUS_SUCCESS) {
 				return status;
 			}
 			if ((status = play_group(say_args->method, places[2], places[1], places[0], NULL, sh)) != SWITCH_STATUS_SUCCESS) {
