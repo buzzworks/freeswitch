@@ -33,7 +33,7 @@
 
 #include <switch.h>
 #include <switch_curl.h>
-#include <json.h>
+#include <json/json.h>
 #ifdef  _MSC_VER
 #include <WinSock2.h>
 #else
