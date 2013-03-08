@@ -1,0 +1,8 @@
+conf/* etc/freeswitch
+usr/bin/fs_cli
+usr/bin/fs_encode
+usr/bin/fs_ivrd
+usr/bin/gentls_cert
+usr/bin/freeswitch
+usr/bin/tone2wav
+usr/lib/freeswitch/*.so

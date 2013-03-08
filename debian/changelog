@@ -1,0 +1,6 @@
+freeswitch (1.2) UNRELEASED; urgency=low
+
+  * Initial release of FreeSWITCH in new Debian packaging.
+  * The debian packaging has been written completely from the ground up.
+
+ -- Arvind Singh <arvind@buzzworks.com>  Thu, 04 Oct 2012 16:32:15 +0530

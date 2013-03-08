@@ -1,0 +1,82 @@
+Source: freeswitch
+Section: net
+Priority: optional
+Maintainer: Arvind Singh <arvind@buzzworks.com>
+Build-Depends: debhelper (>= 9),
+ autoconf, automake, chrpath, libtool, pkg-config,
+ libssl-dev, uuid-dev, zlib1g-dev,
+ libcurl4-openssl-dev, libpcre3-dev, libspeexdsp-dev,
+ libedit-dev, libsrtp0-dev, unixodbc-dev,
+ libncurses5-dev,
+ libpri-dev,
+ libjson0-dev,
+ libmemcached-dev,
+ libjbig-dev, liblzma-dev, libtiff5-dev,
+ flite1-dev,
+ libopus-dev,
+ libspeex-dev,
+ libpq-dev,
+ libzmq-dev,
+ libmp3lame-dev, libmpg123-dev, libshout3-dev,
+ libsndfile1-dev,
+ liblua5.1-dev
+Standards-Version: 3.9.4
+Homepage: http://www.freeswitch.org/
+Vcs-Git: git://git.freeswitch.org/freeswitch
+Vcs-Browser: http://git.freeswitch.org/git/freeswitch/
+
+Package: freeswitch
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ libfreeswitch1 (= ${binary:Version}), adduser,
+ dahdi, dahdi-linux, dahdi-dkms, dahdi-firmware-nonfree
+Recommends:
+Description: scalable multi-protocol soft-switch
+ FreeSWITCH is a scalable open source cross-platform telephony
+ platform designed to route and interconnect popular communication
+ protocols using audio, video, text or any other form of media.
+
+Package: freeswitch-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends}, freeswitch (= ${binary:Version})
+Description: debugging symbols for freeswitch
+ FreeSWITCH is a scalable open source cross-platform telephony
+ platform designed to route and interconnect popular communication
+ protocols using audio, video, text or any other form of media.
+ .
+ This package contains debugging symbols for freeswitch.
+
+Package: libfreeswitch1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: core library for freeswitch
+ FreeSWITCH is a scalable open source cross-platform telephony
+ platform designed to route and interconnect popular communication
+ protocols using audio, video, text or any other form of media.
+ .
+ This package contains core library for FreeSWITCH.
+
+Package: libfreeswitch1-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends}, libfreeswitch1 (= ${binary:Version})
+Description: debugging symbols for libfreeswitch1
+ FreeSWITCH is a scalable open source cross-platform telephony
+ platform designed to route and interconnect popular communication
+ protocols using audio, video, text or any other form of media.
+ .
+ This package contains debugging symbols for libfreeswitch1.
+
+Package: libfreeswitch-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends}, ${perl:Depends}, libfreeswitch1 (= ${binary:Version})
+Description: core development library for freeswitch
+ FreeSWITCH is a scalable open source cross-platform telephony
+ platform designed to route and interconnect popular communication
+ protocols using audio, video, text or any other form of media.
+ .
+ This package contains development files for FreeSWITCH.

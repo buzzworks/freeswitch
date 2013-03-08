@@ -1,0 +1,5 @@
+usr/share/freeswitch/grammar
+usr/share/freeswitch/htdocs
+usr/share/freeswitch/scripts
+var/spool/freeswitch
+var/log/freeswitch

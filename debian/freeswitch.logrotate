@@ -1,0 +1,15 @@
+/var/log/freeswitch/*.log {
+    dateext
+    daily
+    rotate 100
+    missingok
+    postrotate
+        if [ -e /var/run/freeswitch/freeswitch.pid ]; then
+            kill -HUP `cat /var/run/freeswitch/freeswitch.pid`
+        fi
+    endscript
+    delaycompress
+    compress
+    notifempty
+    nocreate
+}

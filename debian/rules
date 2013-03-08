@@ -1,0 +1,66 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+export DH_OPTIONS
+
+%:
+	dh $@
+
+.PHONY: override_dh_testdir
+override_dh_testdir:
+	dh_testdir
+	cp -f debian/modules.conf .
+	touch noreg
+
+.PHONY: override_dh_auto_configure
+override_dh_auto_configure:
+	./bootstrap.sh sid
+	./configure -C \
+		--prefix=/usr \
+		--sysconfdir=/etc/freeswitch \
+		--localstatedir=/var \
+		--build=$(DEB_BUILD_GNU_TYPE) \
+		--host=$(DEB_HOST_GNU_TYPE) \
+		--disable-dependency-tracking \
+		--enable-fast-install \
+		--enable-optimization \
+		--enable-portable-binary \
+		--enable-64 \
+		--enable-zrtp \
+		--enable-core-odbc-support \
+		--with-modinstdir=/usr/lib/freeswitch \
+		--with-rundir=/var/run/freeswitch \
+		--with-logfiledir=/var/log/freeswitch \
+		--with-dbdir=/var/run/freeswitch \
+		--with-htdocsdir=/usr/share/freeswitch/htdocs \
+		--with-soundsdir=/usr/share/freeswitch/sounds \
+		--with-grammardir=/usr/share/freeswitch/grammar \
+		--with-scriptdir=/usr/share/freeswitch/scripts \
+		--with-recordingsdir=/var/spool/freeswitch \
+		--with-gnu-ld \
+		--with-libgnutls-prefix=/usr \
+		--with-odbc=/usr \
+		--with-libcurl=/usr \
+		--with-openssl \
+		--without-java \
+		--without-python \
+		--without-erlang \
+		--with-libpri=/usr
+
+.PHONY: override_dh_auto_test
+override_dh_auto_test:
+	# ignored
+
+.PHONY: override_dh_auto_install
+override_dh_auto_install:
+	dh_auto_install
+	chrpath -d debian/tmp/usr/bin/freeswitch
+
+.PHONY: override_dh_installdocs
+override_dh_installdocs:
+	dh_installdocs --link-doc=libfreeswitch1
+
+.PHONY: override_dh_strip
+override_dh_strip:
+	dh_strip -pfreeswitch --dbg-package=freeswitch-dbg
+	dh_strip -plibfreeswitch1 --dbg-package=libfreeswitch1-dbg

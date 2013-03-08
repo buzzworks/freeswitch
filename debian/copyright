@@ -1,0 +1,17 @@
+Format: http://dep.debian.net/deps/dep5
+Upstream-Name: freeswitch
+Upstream-Contact: Anthony Minessale II <anthm@freeswitch.org>
+Source: http://freeswitch.org
+
+Files: *
+Copyright: 2013 Anthony Minessale II <anthm@freeswitch.org>
+License: MPL-1.1
+
+Files: debian/*
+Copyright: 2013 Arvind Singh <arvind@buzzworks.com>
+License: MPL-1.1
+
+License: MPL-1.1
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 1.1. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/1.1/ .

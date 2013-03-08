@@ -1,0 +1,5 @@
+# We're not in Debian, so we don't have an ITP bug to close.
+libfreeswitch-dev: new-package-should-close-itp-bug
+
+# We're ignoring these for now
+libfreeswitch-dev: binary-without-manpage *

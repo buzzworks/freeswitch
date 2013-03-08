@@ -1,0 +1,2 @@
+# We're not in Debian, so we don't have an ITP bug to close.
+libfreeswitch1-dbg: new-package-should-close-itp-bug
