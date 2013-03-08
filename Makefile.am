@@ -114,19 +114,15 @@ CORE_CFLAGS += $(AM_LIBAPU_CPPFLAGS)
 CORE_CFLAGS += -I$(switch_srcdir)/libs/libtpl-1.5/src
 CORE_CFLAGS += -I$(switch_srcdir)/libs/stfu
 CORE_CFLAGS += -I$(switch_builddir)/libs/sqlite
-CORE_CFLAGS += -I$(switch_srcdir)/libs/pcre
-CORE_CFLAGS += -I$(switch_srcdir)/libs/speex/include -Ilibs/speex/include
-CORE_CFLAGS += -I$(switch_srcdir)/libs/srtp/include
-CORE_CFLAGS += -I$(switch_srcdir)/libs/srtp/crypto/include -Ilibs/srtp/crypto/include
-CORE_CFLAGS += -I$(switch_srcdir)/libs/spandsp/src -I$(switch_srcdir)/libs/tiff-4.0.2/libtiff
+CORE_CFLAGS += -I$(switch_srcdir)/libs/spandsp/src
 
 APR_LIBS   = $(AM_LIBAPU_LIBS) $(AM_LIBAPR_LIBS)
 CORE_LIBS  = libs/apr-util/libaprutil-1.la libs/apr/libapr-1.la
-CORE_LIBS += libs/sqlite/libsqlite3.la libs/pcre/libpcre.la libs/speex/libspeex/libspeexdsp.la
+CORE_LIBS += libs/sqlite/libsqlite3.la -lpcre -lspeexdsp
 
 if ENABLE_SRTP
 CORE_CFLAGS += -DENABLE_SRTP
-CORE_LIBS += libs/srtp/libsrtp.la
+CORE_LIBS += -lsrtp
 endif
 
 MOD_LINK      = $(switch_srcdir)/libfreeswitch.la
@@ -138,8 +134,8 @@ CORE_CFLAGS += -DSWITCH_HAVE_ODBC $(ODBC_INC_FLAGS)
 endif
 
 if HAVE_LIBEDIT
-CORE_CFLAGS += -I$(switch_srcdir)/libs/libedit/src -DSWITCH_HAVE_LIBEDIT
-CORE_LIBS   += libs/libedit/src/.libs/libedit.a
+CORE_CFLAGS += -DSWITCH_HAVE_LIBEDIT
+CORE_LIBS   += -ledit
 endif
 
 if ENABLE_TIMERFD_WRAPPER
@@ -326,11 +322,11 @@ bin_PROGRAMS = freeswitch fs_cli fs_ivrd tone2wav fs_encode
 fs_cli_SOURCES = libs/esl/src/esl.c libs/esl/src/esl_config.c libs/esl/src/esl_event.c \
 	libs/esl/src/esl_threadmutex.c libs/esl/fs_cli.c libs/esl/src/esl_json.c libs/esl/src/esl_buffer.c
 fs_cli_CFLAGS  = $(AM_CFLAGS) -I$(switch_srcdir)/libs/esl/src/include 
-fs_cli_LDFLAGS = $(AM_LDFLAGS) -lpthread $(ESL_LDFLAGS) -lm
+fs_cli_LDFLAGS = $(AM_LDFLAGS) -lpthread $(ESL_LDFLAGS) -lm -luuid -lz
 
 if HAVE_LIBEDIT
-fs_cli_CFLAGS += -DHAVE_EDITLINE -I$(switch_srcdir)/libs/libedit/src
-fs_cli_LDADD   = libs/libedit/src/.libs/libedit.a
+fs_cli_CFLAGS += -DHAVE_EDITLINE
+fs_cli_LDADD   = -ledit
 endif
 
 
@@ -366,7 +362,7 @@ endif
 fs_ivrd_SOURCES = libs/esl/src/esl.c libs/esl/src/esl_config.c libs/esl/src/esl_event.c \
 	libs/esl/src/esl_threadmutex.c libs/esl/ivrd.c libs/esl/src/esl_json.c libs/esl/src/esl_buffer.c
 fs_ivrd_CFLAGS  = $(AM_CFLAGS) -I$(switch_srcdir)/libs/esl/src/include 
-fs_ivrd_LDFLAGS = $(AM_LDFLAGS) -lpthread $(ESL_LDFLAGS) -lm
+fs_ivrd_LDFLAGS = $(AM_LDFLAGS) -lpthread $(ESL_LDFLAGS) -lm -luuid -lz
 
 ##
 ## freeswitch ()
@@ -374,12 +370,12 @@ fs_ivrd_LDFLAGS = $(AM_LDFLAGS) -lpthread $(ESL_LDFLAGS) -lm
 nodist_freeswitch_SOURCES = src/include/switch_version.h
 freeswitch_SOURCES = src/switch.c
 freeswitch_CFLAGS  = $(AM_CFLAGS) $(CORE_CFLAGS)
-freeswitch_LDFLAGS = $(AM_LDFLAGS) -lpthread -rpath $(libdir)
+freeswitch_LDFLAGS = $(AM_LDFLAGS) -lpthread -rpath $(libdir) -lz
 freeswitch_LDADD   = libfreeswitch.la libs/apr/libapr-1.la
 
 if HAVE_LIBEDIT
-freeswitch_CFLAGS += -Ilibs/libedit/src -DSWITCH_HAVE_LIBEDIT
-freeswitch_LDADD  += libs/libedit/src/.libs/libedit.a
+freeswitch_CFLAGS += -DSWITCH_HAVE_LIBEDIT
+freeswitch_LDADD  += -ledit
 endif
 
 if HAVE_ODBC

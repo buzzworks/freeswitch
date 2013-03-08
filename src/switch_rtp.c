@@ -45,8 +45,9 @@
 #undef VERSION
 #undef PACKAGE
 #undef inline
-#include <datatypes.h>
-#include <srtp.h>
+#include <srtp/datatypes.h>
+#include <srtp/ekt.h>
+#include <srtp/srtp.h>
 
 #define READ_INC(rtp_session) switch_mutex_lock(rtp_session->read_mutex); rtp_session->reading++
 #define READ_DEC(rtp_session)  switch_mutex_unlock(rtp_session->read_mutex); rtp_session->reading--
