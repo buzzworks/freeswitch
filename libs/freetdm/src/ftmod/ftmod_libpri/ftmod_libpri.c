@@ -1245,7 +1245,9 @@ static ftdm_status_t state_advance(ftdm_channel_t *chan)
 					} else if (caller_data->hangup_cause == PRI_CAUSE_DESTINATION_OUT_OF_ORDER) {
 						/* Can happen when we have a DL link expire or some timer expired */
 						ftdm_set_state_locked(chan, FTDM_CHANNEL_STATE_HANGUP_COMPLETE);
-					}
+					} else {
+                        ftdm_set_state_locked(chan, FTDM_CHANNEL_STATE_HANGUP_COMPLETE);
+                    }
 				}
 			}
 		}
